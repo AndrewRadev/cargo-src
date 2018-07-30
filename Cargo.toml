@@ -1,5 +1,5 @@
 [package]
-name = "cargo-open"
+name = "cargo-src"
 version = "0.3.0"
 authors = ["Carol (Nichols || Goulding) <carol.nichols@gmail.com>"]
 readme = "README.md"
@@ -9,7 +9,7 @@ license = "MIT/Apache-2.0"
 description = "A third-party cargo extension to allow you to open a dependent crate in your $EDITOR"
 
 [[bin]]
-name = "cargo-open"
+name = "cargo-src"
 
 [dependencies]
 clap = "*"
