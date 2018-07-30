@@ -10,7 +10,7 @@ use cargo::util::{hex, CargoResult};
 
 use std::env;
 use std::path::{Path, PathBuf};
-//use std::process::Command;
+use std::process::{self, Command};
 //use std::ffi::OsString;
 
 const DESCRIPTION: &'static str =
@@ -38,8 +38,18 @@ fn main() {
         Err(e) => panic!(e),
     };
 
+    let mut command = Command::new("ctags");
+    command.args(&["-R", "-o", "Cargo.tags"]);
     for dir in src_dirs {
-        println!("Directory: {}", dir.to_string_lossy());
+        command.arg(dir.to_string_lossy().to_string());
+    }
+
+    match command.status() {
+        Ok(status) => process::exit(status.code().unwrap_or(1)),
+        Err(e) => {
+            eprintln!("Error executing ctags command: {}", e);
+            process::exit(1);
+        }
     }
 }
 
