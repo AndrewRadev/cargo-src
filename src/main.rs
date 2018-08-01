@@ -87,8 +87,13 @@ fn cargo_dirs() -> CargoResult<Option<Vec<PathBuf>>> {
         // Build the crate's unpacked destination directory the same way cargo's RegistrySource does as
         // of https://github.com/rust-lang/cargo/blob/176b5c17906cf43445888e83a4031e411f56e7dc/src/cargo/sources/registry.rs#L357-L358
         let dest = format!("{}-{}", pkgid.name(), pkgid.version());
+        let full_path = src_path.join(&dest);
 
-        Some(src_path.join(&dest))
+        if full_path.exists() {
+            Some(full_path)
+        } else {
+            None
+        }
     }).collect()))
 }
 
