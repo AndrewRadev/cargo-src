@@ -1,12 +1,15 @@
 [package]
 name = "cargo-src"
-version = "0.3.0"
-authors = ["Carol (Nichols || Goulding) <carol.nichols@gmail.com>"]
+version = "0.1.0"
+authors = [
+  "Andrew Radev <andrey.radev@gmail.com>",
+  "Carol (Nichols || Goulding) <carol.nichols@gmail.com>"
+]
 readme = "README.md"
-repository = "https://github.com/carols10cents/cargo-open"
-homepage = "https://github.com/carols10cents/cargo-open"
+repository = "https://github.com/AndrewRadev/cargo-src"
+homepage = "https://github.com/AndrewRadev/cargo-src"
 license = "MIT/Apache-2.0"
-description = "A third-party cargo extension to allow you to open a dependent crate in your $EDITOR"
+description = "A third-party cargo extension that lists local source locations of dependencies"
 
 [[bin]]
 name = "cargo-src"
