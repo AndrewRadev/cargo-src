@@ -2,7 +2,7 @@
 extern crate clap;
 extern crate cargo;
 
-use clap::{App, AppSettings, SubCommand};
+use clap::{App, AppSettings, SubCommand, Arg};
 use cargo::core::Workspace as CargoWorkspace;
 use cargo::util::config::Config as CargoConfig;
 use cargo::ops::load_pkg_lockfile as load_cargo_lockfile;
@@ -17,7 +17,7 @@ const DESCRIPTION: &'static str =
     "A third-party cargo extension that generates a ctags tag file for your packages";
 
 fn main() {
-    App::new("cargo-tags")
+    let arg_matches = App::new("cargo-tags")
         .about(DESCRIPTION)
         .version(&crate_version!()[..])
         // We have to lie about our binary name since this will be a third party
@@ -25,9 +25,17 @@ fn main() {
         .bin_name("cargo")
         // We use a subcommand because parsed after `cargo` is sent to the third party plugin
         // which will be interpreted as a subcommand/positional arg by clap
-        .subcommand(SubCommand::with_name("tags").about(DESCRIPTION))
+        .subcommand(SubCommand::with_name("tags").about(DESCRIPTION)
+                    .arg(Arg::with_name("output-file")
+                         .long("file")
+                         .short("f")
+                         .default_value("Cargo.tags")
+                         .help("The name of the output file.")))
         .settings(&[AppSettings::SubcommandRequired])
         .get_matches();
+
+    let arg_matches = arg_matches.subcommand_matches("tags").unwrap();
+    let output_file = arg_matches.value_of("output-file").unwrap_or("Cargo.tags");
 
     let src_dirs = match cargo_dirs() {
         Ok(Some(dirs)) => dirs,
@@ -39,7 +47,7 @@ fn main() {
     };
 
     let mut command = Command::new("ctags");
-    command.args(&["-R", "-o", "Cargo.tags"]);
+    command.args(&["-R", "-o", output_file]);
     for dir in src_dirs {
         command.arg(dir.to_string_lossy().to_string());
     }
