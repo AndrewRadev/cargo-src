@@ -11,12 +11,21 @@ use cargo::util::{hex, CargoResult};
 use std::env;
 use std::path::{Path, PathBuf};
 use std::process::{self, Command};
+use std::io::{BufReader, BufRead};
+use std::fs::File;
 //use std::ffi::OsString;
 
 const DESCRIPTION: &'static str =
     "A third-party cargo extension that generates a ctags tag file for your packages";
 
 fn main() {
+    let file_args = read_config_args()
+        .unwrap_or_else(Vec::new)
+        .into_iter()
+        .map(String::into);
+    let args = env::args_os();
+    let args = args.chain(file_args);
+
     let arg_matches = App::new("cargo-tags")
         .about(DESCRIPTION)
         .version(&crate_version!()[..])
@@ -30,9 +39,11 @@ fn main() {
                          .long("file")
                          .short("f")
                          .default_value("Cargo.tags")
+                         .multiple(true)
+                         .number_of_values(1)
                          .help("The name of the output file.")))
         .settings(&[AppSettings::SubcommandRequired])
-        .get_matches();
+        .get_matches_from(args);
 
     let arg_matches = arg_matches.subcommand_matches("tags").unwrap();
     let output_file = arg_matches.value_of("output-file").unwrap_or("Cargo.tags");
@@ -59,6 +70,13 @@ fn main() {
             process::exit(1);
         }
     }
+}
+
+fn read_config_args() -> Option<Vec<String>> {
+    let home_dir = env::home_dir()?;
+    let config_file = File::open(home_dir.join(".cargo/tagsrc")).ok()?;
+    let reader = BufReader::new(config_file);
+    reader.lines().map(Result::ok).collect()
 }
 
 fn cargo_dirs() -> CargoResult<Option<Vec<PathBuf>>> {
