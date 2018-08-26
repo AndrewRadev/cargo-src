@@ -32,10 +32,13 @@ fn main() {
     let src_dirs = match cargo_dirs() {
         Ok(Some(dirs)) => dirs,
         Ok(None) => {
-            println!("Couldn't detect Cargo project in the current directory");
-            return;
+            eprintln!("Couldn't detect Cargo project in the current directory");
+            process::exit(1);
         },
-        Err(e) => panic!(e),
+        Err(e) => {
+            eprintln!("{}", e);
+            process::exit(1);
+        },
     };
 
     for dir in src_dirs {
@@ -60,7 +63,7 @@ fn cargo_dirs() -> CargoResult<Option<Vec<PathBuf>>> {
 
     // Build registry_source_path the same way cargo's Config does as of
     // https://github.com/rust-lang/cargo/blob/176b5c17906cf43445888e83a4031e411f56e7dc/src/cargo/util/config.rs#L35-L80
-    let cwd                  = try!(env::current_dir());
+    let cwd                  = env::current_dir()?;
     let cargo_home           = env::var_os("CARGO_HOME").map(|home| cwd.join(home));
     let user_home            = env::home_dir().map(|p| p.join(".cargo")).expect("user_home");
     let home_path            = cargo_home.unwrap_or(user_home);
