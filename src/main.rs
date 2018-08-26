@@ -41,7 +41,11 @@ fn main() {
                          .default_value("Cargo.tags")
                          .multiple(true)
                          .number_of_values(1)
-                         .help("The name of the output file.")))
+                         .help("The name of the output file."))
+                    .arg(Arg::with_name("include-src")
+                         .long("include-src")
+                         .takes_value(false)
+                         .help("Also indexes the current project's src/ directory")))
         .settings(&[AppSettings::SubcommandRequired])
         .get_matches_from(args);
 
@@ -61,6 +65,9 @@ fn main() {
     command.args(&["-R", "-o", output_file]);
     for dir in src_dirs {
         command.arg(dir.to_string_lossy().to_string());
+    }
+    if arg_matches.is_present("include-src") {
+        command.arg(absolutize("src".into()));
     }
 
     match command.status() {
