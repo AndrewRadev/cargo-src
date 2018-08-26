@@ -1,76 +1,54 @@
-# `cargo open`
+*Note: The original codebase was taken from the [`cargo open`](TODO) project, and was adapted to
+work for generating tags instead.*
 
-[![Build Status](https://travis-ci.org/carols10cents/cargo-open.svg?branch=master)](https://travis-ci.org/carols10cents/cargo-open)
+# `cargo tags`
 
-A third-party cargo extension to allow you to open a dependent crate in your $EDITOR. Heavily inspired by `bundle open`!
+TODO build status
 
-# Compiling
+[![Build Status](https://travis-ci.org/AndrewRadev/cargo-tags.svg?branch=master)](https://travis-ci.org/AndrewRadev/cargo-tags)
 
-I'm assuming you already have Rust and cargo set up.
+A third-party cargo extension that generates a ctags tags file for all of your cargo dependencies.
 
-Clone this repository and go into the created directory:
+## Installing
 
-    git clone https://github.com/carols10cents/cargo-open.git
-    cd cargo-open
+You can install the tool from cargo.io by running:
 
-And compile a release version:
+``` bash
+$ cargo install cargo-tags
+```
 
-    cargo build --release
+This will install the executable `cargo-tags` in your cargo `bin` directory, which on *nix systems
+would be `~/.cargo/bin`. You should add that directory to your `PATH`.
 
-You should now have an executable in `[starting directory]/cargo-open/target/release/cargo-open`.
+In order to generate the tags, you'll need a compatible `ctags` executable. The two main options are:
 
-# Installing and Using
+- [Universal ctags](TODO). Should work out of the box for Rust.
+- [Exuberant ctags](TODO). You'll need to add Rust support with regexes. There's an example ctags
+  config [here](TODO) that will probably do a reasonable job.
 
-Compile the code as shown in the previous section, then put the `cargo-open` executable in your PATH.
+## Usage
 
-My favorite way of doing this is I have a pre-existing directory in `~/bin` that contains little scripts of mine, that dir is added to my PATH in my `.bashrc` so that it's always available, and then I symlink the release version from where it exists to that directory:
+After installing, you should be able to go to any cargo project's root directory and run the
+following command:
 
-    ln -s [starting directory]/cargo-open/target/release/cargo-open ~/bin/
+``` bash
+$ cargo tags
+```
 
-Once you've done that, because of the way cargo is set up to use third party extensions, in any other Rust project of yours, you should be able to run:
+Provided you have a `ctags` program, this will eventually generate a file named `Cargo.tags`, which
+will contain all symbols and their source locations on your system. Make sure you've run a `cargo
+build`, so that the source code for all of the dependencies is fetched (if you haven't, there won't
+be any source to index for that package quite yet).
 
-    cargo open [some crate you're using]
+## Contributing
 
-and that crate will open in your desired editor.
+You can run the tool locally by executing `cargo run tags`. Note the subcommand -- it's necessary,
+because it would ordinarily be called as `cargo tags`.
 
-`cargo open` determines your desired editor by first checking `$CARGO_EDITOR`, then `$VISUAL`, then `$EDITOR`. It will fail with a hopefully-helpful error message if none of these are set.
+If you'd like to run it on a different directory, you can either install the local program with
+`cargo install --force`, or you can find the compiled binary in `target/debug/cargo-tags`, and run
+it by using the full path to the executable.
 
-# Contributing
-
-Pull requests, bug reports, and feature requests are all welcome! <3 <3 <3
-
-If you'd like to work on your own version of the code, fork this repo and follow the Compiling steps above except with your fork.
-
-One weird thing if you're running the binary directly instead of through the `cargo` plugin system is that clap doesn't think you're using a subcommand. If you try, you'll get:
-
-    $ ./target/release/cargo-open whatever
-    error: Found argument 'whatever', but cargo wasn't expecting any
-
-    USAGE:
-            cargo <SUBCOMMAND>
-
-    For more information try --help
-
-To get around this, either follow the Installation and Usage instructions above and always use `cargo open whatever` or re-specify `open` as the subcommand:
-
-    ./target/release/cargo-open open whatever
-
-## Running tests
-
-Because the tests set and get environment variables, and that isn't guaranteed to be safe to access concurrently, the tests will sometimes fail unless you run them with one thread:
-
-    $ RUST_TEST_THREADS=1 cargo test
-
-Using this command, the tests should always pass.
-
-# TODO
-
-Please see this repo's issues for things I intend to add someday, and file new issues for anything you think is missing!
-
-I've also labeled issues with "E-easy" for ones that I think would be easy to pick up if you would like to help-- please ask for clarification if any of them are unclear!
-
-# License
-
-`cargo open` is primarily distributed under the terms of both the MIT license and the Apache License (Version 2.0).
-
-See LICENSE-APACHE and LICENSE-MIT for details.
+If you've made a change that's useful to you, consider preparing a pull request on [github](TODO).
+If you've found a bug or are not sure how to implement a particular feature, feel free to open an
+issue and ask for help.
