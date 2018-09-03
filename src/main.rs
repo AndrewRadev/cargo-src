@@ -10,6 +10,7 @@ use cargo::util::{hex, CargoResult};
 
 use std::env;
 use std::path::{Path, PathBuf};
+use std::process;
 //use std::process::Command;
 //use std::ffi::OsString;
 
