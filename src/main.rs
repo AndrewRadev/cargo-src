@@ -2,18 +2,16 @@
 extern crate clap;
 extern crate cargo;
 
-use clap::{Arg, App, AppSettings, SubCommand};
 use cargo::core::Workspace as CargoWorkspace;
-use cargo::util::config::Config as CargoConfig;
 use cargo::ops::load_pkg_lockfile as load_cargo_lockfile;
+use cargo::util::config::Config as CargoConfig;
 use cargo::util::{hex, CargoResult};
+use clap::{Arg, App, AppSettings, SubCommand};
 
+use std::collections::HashMap;
 use std::env;
 use std::path::{Path, PathBuf};
 use std::process;
-use std::collections::HashMap;
-//use std::process::Command;
-//use std::ffi::OsString;
 
 const DESCRIPTION: &'static str =
     "A third-party cargo extension that generates a ctags tag file for your packages";
