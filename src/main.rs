@@ -14,7 +14,7 @@ use std::path::{Path, PathBuf};
 use std::process;
 
 const DESCRIPTION: &'static str =
-    "A third-party cargo extension that generates a ctags tag file for your packages";
+    "A third-party cargo extension that lists dependencies' source locations";
 
 fn main() {
     let outer_matches = App::new("cargo-src")
