@@ -29,7 +29,10 @@ fn main() {
                     .arg(Arg::with_name("PACKAGE")
                          .help("Individual packages to show the source locations of")
                          .multiple(true)
-                         .required(false)))
+                         .required(false))
+                    .arg(Arg::with_name("only-names")
+                         .long("only-names")
+                         .help("Only list package names")))
         .settings(&[AppSettings::SubcommandRequired])
         .get_matches();
     let arg_matches = outer_matches.subcommand_matches("src").unwrap();
@@ -49,16 +52,26 @@ fn main() {
     if let Some(package_names) = arg_matches.values_of("PACKAGE") {
         for package_name in package_names {
             match src_dirs.get(package_name) {
-                Some(dir) => println!("{}", dir.display()),
+                Some(dir) => {
+                    if arg_matches.is_present("only-names") {
+                        println!("{}", package_name)
+                    } else {
+                        println!("{}", dir.display())
+                    }
+                },
                 None => {
+                    // TODO Quiet/verbose?
                     eprintln!("Couldn't find src dir for package: {}", package_name);
-                    process::exit(1);
                 }
             }
         }
     } else {
-        for (_, dir) in src_dirs {
-            println!("{}", dir.display());
+        for (package_name, dir) in src_dirs {
+            if arg_matches.is_present("only-names") {
+                println!("{}", package_name);
+            } else {
+                println!("{}", dir.display());
+            }
         }
     }
 }
