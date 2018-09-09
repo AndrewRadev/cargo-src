@@ -40,11 +40,11 @@ fn main() {
     let src_dirs = match cargo_dirs() {
         Ok(Some(dirs)) => dirs,
         Ok(None) => {
-            eprintln!("Couldn't detect Cargo project in the current directory");
+            eprintln!("Error: Couldn't detect Cargo project in the current directory");
             process::exit(1);
         },
         Err(e) => {
-            eprintln!("{}", e);
+            eprintln!("Error: {}", e);
             process::exit(1);
         },
     };
@@ -60,8 +60,7 @@ fn main() {
                     }
                 },
                 None => {
-                    // TODO Quiet/verbose?
-                    eprintln!("Couldn't find src dir for package: {}", package_name);
+                    eprintln!("Warning: Couldn't find src dir for package: {}", package_name);
                 }
             }
         }
