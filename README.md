@@ -1,8 +1,6 @@
-*Note: The original codebase was taken from the [`cargo open`](TODO) project, and was adapted to work for listing source files instead.*
+*Note: The original codebase was taken from the [`cargo open`](https://github.com/carols10cents/cargo-open) project, and was adapted to work for listing source files instead.*
 
 # `cargo src`
-
-TODO build status
 
 [![Build Status](https://travis-ci.org/AndrewRadev/cargo-src.svg?branch=master)](https://travis-ci.org/AndrewRadev/cargo-src)
 
@@ -38,7 +36,7 @@ On its own, this isn't super interesting, but it can be used as a component in o
 
 ### cargo-open
 
-The original codebase for this tool, can be more or less reimplemented with:
+The project that this codebase was more or less copied from can be more-or-less implemented like so:
 
 ``` bash
 $ $EDITOR `cargo src <package-name>`
