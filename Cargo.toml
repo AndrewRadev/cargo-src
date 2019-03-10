@@ -1,10 +1,7 @@
 [package]
 name = "cargo-src"
 version = "0.1.0"
-authors = [
-  "Andrew Radev <andrey.radev@gmail.com>",
-  "Carol (Nichols || Goulding) <carol.nichols@gmail.com>"
-]
+authors = ["Andrew Radev <andrey.radev@gmail.com>"]
 readme = "README.md"
 repository = "https://github.com/AndrewRadev/cargo-src"
 homepage = "https://github.com/AndrewRadev/cargo-src"
