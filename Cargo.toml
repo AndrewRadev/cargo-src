@@ -17,3 +17,4 @@ name = "cargo-src"
 [dependencies]
 clap = "*"
 cargo = "0.32.0"
+dirs = "1.0.5"

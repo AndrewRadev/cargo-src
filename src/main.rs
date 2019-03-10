@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate clap;
 extern crate cargo;
+extern crate dirs;
 
 use cargo::core::Workspace as CargoWorkspace;
 use cargo::ops::load_pkg_lockfile as load_cargo_lockfile;
@@ -94,7 +95,7 @@ fn cargo_dirs() -> CargoResult<Option<HashMap<String, PathBuf>>> {
     // https://github.com/rust-lang/cargo/blob/176b5c17906cf43445888e83a4031e411f56e7dc/src/cargo/util/config.rs#L35-L80
     let cwd                  = env::current_dir()?;
     let cargo_home           = env::var_os("CARGO_HOME").map(|home| cwd.join(home));
-    let user_home            = env::home_dir().map(|p| p.join(".cargo")).expect("user_home");
+    let user_home            = dirs::home_dir().map(|p| p.join(".cargo")).expect("user_home");
     let home_path            = cargo_home.unwrap_or(user_home);
     let registry_source_path = home_path.join("registry").join("src");
 
