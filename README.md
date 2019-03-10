@@ -2,8 +2,6 @@
 
 # `cargo src`
 
-[![Build Status](https://travis-ci.org/AndrewRadev/cargo-src.svg?branch=master)](https://travis-ci.org/AndrewRadev/cargo-src)
-
 A third-party cargo extension that lists local source locations of dependencies.
 
 ## Installing
