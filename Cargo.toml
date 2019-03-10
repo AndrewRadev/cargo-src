@@ -16,4 +16,4 @@ name = "cargo-src"
 
 [dependencies]
 clap = "*"
-cargo = "*"
+cargo = "0.32.0"
