@@ -45,7 +45,7 @@ On its own, this isn't super interesting, but it can be used as a component in o
 
 ### cargo-open
 
-The project that this codebase was more or less copied from can be more-or-less implemented like so:
+The project that this codebase was more-or-less copied from can be more-or-less implemented like so:
 
 ``` bash
 $ $EDITOR `cargo src <package-name>`
@@ -74,7 +74,7 @@ $EDITOR "$src"
 
 ### cargo-tags
 
-The original intent for this fork. A tool like this already exists as [rusty-tags](https://github.com/dan-t/rusty-tags), but it's easy to do something similar with a one-liner: `ctags -o Cargo.tags -R $(cargo src)`. A longer script with error handling:
+The original plan for this fork. A tool like this already exists as [rusty-tags](https://github.com/dan-t/rusty-tags), but it's easy to do something similar with a one-liner: `ctags -o Cargo.tags -R $(cargo src)`. A longer script with error handling:
 
 ``` bash
 #! /bin/sh
@@ -92,6 +92,6 @@ echo "$sources" | xargs --delimiter="\n" ctags -o Cargo.tags -R
 
 You can run the tool locally by executing `cargo run src`. Note the subcommand -- it's necessary, because it would ordinarily be called as `cargo src`.
 
-If you'd like to run it on a different directory, you can either install the local program with `cargo install --force`, or you can find the compiled binary in `target/debug/cargo-src`, and run it by using the full path to the executable.
+If you'd like to run it on a different directory, you can either install the local program with `cargo install --path . --force`, or you can find the compiled binary in `target/debug/cargo-src`, and run it by using the full path to the executable.
 
 If you've made a change that's useful to you, consider preparing a pull request on [github](https://github.com/AndrewRadev/cargo-src). If you've found a bug or are not sure how to implement a particular feature, feel free to open an issue and ask for help.
