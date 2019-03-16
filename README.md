@@ -30,6 +30,17 @@ $ cargo src clap cargo
 /home/andrew/.cargo/registry/src/github.com-1ecc6299db9ec823/cargo-0.28.0
 ```
 
+You can run the command with `--only-names` to list package names alone -- useful for generating shell completion, for instance:
+
+``` bash
+$ cargo src --only-names
+toml
+semver-parser
+fuchsia-zircon
+atty
+...
+```
+
 On its own, this isn't super interesting, but it can be used as a component in other tools like shell scripts. A few examples follow:
 
 ### cargo-open
@@ -63,7 +74,7 @@ $EDITOR "$src"
 
 ### cargo-tags
 
-The original intent for this fork. A tool like this already exists as [rusty-tags](TODO), but it's easy to do something similar with a one-liner: `ctags -o Cargo.tags -R $(cargo src)`. A longer script with error handling:
+The original intent for this fork. A tool like this already exists as [rusty-tags](https://github.com/dan-t/rusty-tags), but it's easy to do something similar with a one-liner: `ctags -o Cargo.tags -R $(cargo src)`. A longer script with error handling:
 
 ``` bash
 #! /bin/sh
@@ -83,4 +94,4 @@ You can run the tool locally by executing `cargo run src`. Note the subcommand -
 
 If you'd like to run it on a different directory, you can either install the local program with `cargo install --force`, or you can find the compiled binary in `target/debug/cargo-src`, and run it by using the full path to the executable.
 
-If you've made a change that's useful to you, consider preparing a pull request on [github](TODO). If you've found a bug or are not sure how to implement a particular feature, feel free to open an issue and ask for help.
+If you've made a change that's useful to you, consider preparing a pull request on [github](https://github.com/AndrewRadev/cargo-src). If you've found a bug or are not sure how to implement a particular feature, feel free to open an issue and ask for help.
