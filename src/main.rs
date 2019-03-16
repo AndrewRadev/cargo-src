@@ -18,7 +18,7 @@ const DESCRIPTION: &'static str =
     "A third-party cargo extension that lists dependencies' source locations";
 
 fn main() {
-    let outer_matches = App::new("cargo-src")
+    let outer_matches = App::new("cargo-local")
         .about(DESCRIPTION)
         .version(&crate_version!()[..])
         // We have to lie about our binary name since this will be a third party
@@ -26,7 +26,7 @@ fn main() {
         .bin_name("cargo")
         // We use a subcommand because parsed after `cargo` is sent to the third party plugin
         // which will be interpreted as a subcommand/positional arg by clap
-        .subcommand(SubCommand::with_name("src").about(DESCRIPTION)
+        .subcommand(SubCommand::with_name("local").about(DESCRIPTION)
                     .arg(Arg::with_name("PACKAGE")
                          .help("Individual packages to show the source locations of")
                          .multiple(true)
@@ -36,7 +36,7 @@ fn main() {
                          .help("Only list package names")))
         .settings(&[AppSettings::SubcommandRequired])
         .get_matches();
-    let arg_matches = outer_matches.subcommand_matches("src").unwrap();
+    let arg_matches = outer_matches.subcommand_matches("local").unwrap();
 
     let src_dirs = match cargo_dirs() {
         Ok(Some(dirs)) => dirs,
@@ -61,7 +61,7 @@ fn main() {
                     }
                 },
                 None => {
-                    eprintln!("Warning: Couldn't find src dir for package: {}", package_name);
+                    eprintln!("Warning: Couldn't find local dir for package: {}", package_name);
                 }
             }
         }

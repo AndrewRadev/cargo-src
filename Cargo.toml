@@ -1,18 +1,18 @@
 [package]
-name = "cargo-src"
+name = "cargo-local"
 version = "0.1.0"
 authors = ["Andrew Radev <andrey.radev@gmail.com>"]
 edition = "2018"
 readme = "README.md"
-repository = "https://github.com/AndrewRadev/cargo-src"
-documentation = "https://docs.rs/cargo-src/latest/cargo_src"
-homepage = "https://github.com/AndrewRadev/cargo-src"
+repository = "https://github.com/AndrewRadev/cargo-local"
+documentation = "https://docs.rs/cargo-local/latest/cargo_local"
+homepage = "https://github.com/AndrewRadev/cargo-local"
 license = "MIT OR Apache-2.0"
 description = "A third-party cargo extension that lists local source locations of dependencies"
 categories = [ "command-line-utilities", "development-tools::cargo-plugins" ]
 
 [[bin]]
-name = "cargo-src"
+name = "cargo-local"
 
 [dependencies]
 clap = "2.32.0"
