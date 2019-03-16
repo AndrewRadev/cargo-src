@@ -74,8 +74,7 @@ if [ $status -ne 0 ]; then
   exit $status
 fi
 
-# TODO check for problems with spaces and stuff
-ctags -o Cargo.tags -R $sources
+echo "$sources" | xargs --delimiter="\n" ctags -o Cargo.tags -R
 ```
 
 ## Contributing
