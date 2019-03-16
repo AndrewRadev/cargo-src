@@ -129,12 +129,3 @@ fn absolutize(pb: PathBuf) -> PathBuf {
         std::env::current_dir().expect("current_dir").join(&pb.as_path()).clone()
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use std::env;
-    fn setup() {
-
-    }
-}
