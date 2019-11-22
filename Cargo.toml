@@ -15,6 +15,6 @@ categories = [ "command-line-utilities", "development-tools::cargo-plugins" ]
 name = "cargo-local"
 
 [dependencies]
-clap = "2.32.0"
-cargo = "0.32.0"
-dirs = "1.0.5"
+clap = { version = "2.33.0", default-features = false }
+cargo = "0.40.0"
+dirs = "2.0.2"

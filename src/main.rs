@@ -102,7 +102,7 @@ fn cargo_dirs() -> CargoResult<Option<HashMap<String, PathBuf>>> {
     let paths = resolved.iter().flat_map(|pkgid| {
         // Build src_path the same way cargo's RegistrySource does as of
         // https://github.com/rust-lang/cargo/blob/176b5c17906cf43445888e83a4031e411f56e7dc/src/cargo/sources/registry.rs#L232-L238
-        let hash     = hex::short_hash(pkgid.source_id());
+        let hash     = hex::short_hash(&pkgid.source_id());
         let ident    = pkgid.source_id().url().host()?.to_string();
         let part     = format!("{}-{}", ident, hash);
         let src_path = registry_source_path.join(&part);
