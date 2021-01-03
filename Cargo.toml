@@ -16,5 +16,5 @@ name = "cargo-local"
 
 [dependencies]
 clap = { version = "2.33.3", default-features = false }
-cargo = "0.49.0"
-dirs = "2.0.2"
+cargo = "0.50.0"
+dirs = "3.0.1"
