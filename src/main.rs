@@ -9,13 +9,13 @@ use std::env;
 use std::path::{Path, PathBuf};
 use std::process;
 
-const DESCRIPTION: &'static str =
+const DESCRIPTION: &str =
     "A third-party cargo extension that lists dependencies' source locations";
 
 fn main() {
     let outer_matches = App::new("cargo-local")
         .about(DESCRIPTION)
-        .version(&crate_version!()[..])
+        .version(crate_version!())
         // We have to lie about our binary name since this will be a third party
         // subcommand for cargo, this trick learned from cargo-outdated
         .bin_name("cargo")
@@ -79,7 +79,7 @@ fn cargo_dirs() -> CargoResult<Option<HashMap<String, PathBuf>>> {
     let manifest_path     = manifest_path_buf.as_path();
 
     let cargo_config = CargoConfig::default().expect("cargo_config");
-    let workspace = CargoWorkspace::new(&manifest_path, &cargo_config)?;
+    let workspace = CargoWorkspace::new(manifest_path, &cargo_config)?;
 
     let resolved = match load_cargo_lockfile(&workspace)? {
         Some(r) => r,
@@ -121,6 +121,6 @@ fn absolutize(pb: PathBuf) -> PathBuf {
     if pb.as_path().is_absolute() {
         pb
     } else {
-        std::env::current_dir().expect("current_dir").join(&pb.as_path()).clone()
+        std::env::current_dir().expect("current_dir").join(&pb.as_path())
     }
 }
