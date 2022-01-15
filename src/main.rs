@@ -7,7 +7,7 @@ use cargo::core::Workspace as CargoWorkspace;
 use cargo::ops::load_pkg_lockfile as load_cargo_lockfile;
 use cargo::util::config::Config as CargoConfig;
 use cargo::util::{hex, CargoResult};
-use clap::{Arg, App, AppSettings, SubCommand};
+use clap::{Arg, App, AppSettings};
 
 use std::collections::HashMap;
 use std::env;
@@ -26,15 +26,15 @@ fn main() {
         .bin_name("cargo")
         // We use a subcommand because parsed after `cargo` is sent to the third party plugin
         // which will be interpreted as a subcommand/positional arg by clap
-        .subcommand(SubCommand::with_name("local").about(DESCRIPTION)
-                    .arg(Arg::with_name("PACKAGE")
+        .subcommand(App::new("local").about(DESCRIPTION)
+                    .arg(Arg::new("PACKAGE")
                          .help("Individual packages to show the source locations of")
-                         .multiple(true)
+                         .multiple_occurrences(true)
                          .required(false))
-                    .arg(Arg::with_name("only-names")
+                    .arg(Arg::new("only-names")
                          .long("only-names")
                          .help("Only list package names")))
-        .settings(&[AppSettings::SubcommandRequired])
+        .setting(AppSettings::SubcommandRequired)
         .get_matches();
     let arg_matches = outer_matches.subcommand_matches("local").unwrap();
 

@@ -2,7 +2,7 @@
 name = "cargo-local"
 version = "0.2.1"
 authors = ["Andrew Radev <andrey.radev@gmail.com>"]
-edition = "2018"
+edition = "2021"
 readme = "README.md"
 repository = "https://github.com/AndrewRadev/cargo-local"
 documentation = "https://docs.rs/cargo-local/latest/cargo_local"
@@ -15,6 +15,6 @@ categories = [ "command-line-utilities", "development-tools::cargo-plugins" ]
 name = "cargo-local"
 
 [dependencies]
-clap = { version = "2.33.3", default-features = false }
-cargo = "0.50.0"
-dirs = "3.0.1"
+clap = { version = "3.0.1", default-features = false, features = ["std", "cargo"] }
+cargo = "0.58.0"
+dirs = "4.0.0"
