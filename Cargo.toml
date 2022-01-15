@@ -1,6 +1,6 @@
 [package]
 name = "cargo-local"
-version = "0.2.1"
+version = "0.3.0"
 authors = ["Andrew Radev <andrey.radev@gmail.com>"]
 edition = "2021"
 readme = "README.md"
